@@ -43,8 +43,9 @@ left:200,				   //文本距离左边的距离,默认200px
 height:30,				   //banner的高度,默认30px            
 delegateHandle:null,       //ion-content的delegate-handle,默认为null,可以设置    
 下面是一个demo：    
-![banner](/test/img/banner1.gif "banner")    
-(4)动态的banner的用法
+![banner](/test/img/banner1.gif "banner")       
+<br/>   
+(4)动态的banner的用法       
 比如下拉刷新数据时   
 ```
  $scope.refreshItems = function() {
