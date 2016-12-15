@@ -83,8 +83,7 @@ angular.module('bing.ionic.content.banner', ['ionic']);
 
         function getActiveView (body) {
           // 所有活动的ion-view
-          var views = body.querySelectorAll('ion-view[nav-view="active"]');
-
+          var views = body.querySelectorAll('ion-nav-view[nav-view="active"]');
           // 如果只有一个活动ion-view
           if (views.length === 1) {
             return views[0];
@@ -183,7 +182,6 @@ angular.module('bing.ionic.content.banner', ['ionic']);
             if(!scope.delegateHandle) {
               // 活动视图添加编译后模板
               getActiveView(body).querySelector('.scroll-content').appendChild(element[0]);
-            
             }else {
               // 活动视图添加编译后模板
               $ionicScrollDelegate.$getByHandle(scope.delegateHandle).getScrollView().__container.appendChild(element[0]);
@@ -215,11 +213,171 @@ angular.module('bing.ionic.content.banner', ['ionic']);
           return scope.close;
         }
 
+
+        /**
+        * 显示固定banner的函数
+        *
+        */
+
+        function stableBanner(opts) {
+          /**
+          创建一个新的作用域
+          */
+          var scope = $rootScope.$new(true);
+
+          /**
+          继承配置
+          */
+          angular.extend(scope, {
+            icon: 'ion-close-circled',
+            text: null,
+            type: 'info',
+            left:200,
+            height:30,
+            $deregisterBackButton: angular.noop,
+            closeOnStateChange: true,
+            delegateHandle:null,   
+          }, opts);
+
+          switch(scope.type) {
+            case "info" : scope.themeClass = 'bar-balanced';
+                          scope.iconClose = 'icon-close-balanced';
+            break;
+            case "warning" : scope.themeClass = 'bar-energized';
+                             scope.iconClose = 'icon-close-energized';
+            break;
+            case "error" : scope.themeClass = 'bar-assertive';
+                           scope.iconClose = 'icon-close-assertive';
+            break;
+            case "positive" : scope.themeClass = 'bar-positive';
+                            scope.iconClose = 'icon-close-positive';
+            break;
+            case "calm" : scope.themeClass = 'bar-calm';
+                          scope.iconClose = 'icon-close-calm';
+            break;
+            case "royal" : scope.themeClass = 'bar-royal';
+                          scope.iconClose = 'icon-close-royal';
+            break;
+            case "dark" : scope.themeClass = 'bar-dark';
+                          scope.iconClose = 'icon-close-dark';
+          }
+
+          var template = 
+                '<div class="bar bar-subheader {{::themeClass}}" style="height:{{::height}}px">'+
+                  '<span class="title-stable-banner">'+
+                    '<span class="title-stable-banner-content" ng-bind-html="text"></span>'+
+                  '</span>'+
+                '<span class="icon-close-stable-banner {{::iconClose}}" ng-click="close()"><i class="{{::icon}}"></i></span>'+
+                '</div>';
+
+
+          /**
+            *编译后的模板元素
+            */
+          var element = scope.element = $compile(template)(scope),
+              body = $document[0].body;
+          
+          /**
+          * 获取活动视图
+          *@return activeView活动视图对象
+          */  
+          scope.getActiveContent = function() {
+            if(!scope.delegateHandle) {
+              // 活动视图添加编译后模板
+              return getActiveView(body).querySelector('ion-view').querySelector('ion-content');
+            
+            }else {
+              // 活动视图添加编译后模板
+              return angular.element($ionicScrollDelegate.$getByHandle(scope.delegateHandle).getScrollView().__container).parent()[0].querySelector('ion-content');
+            }
+          }
+            /**
+            * 关闭(删除固定的banner)
+            *
+            */
+          scope.close = function() {
+            $timeout(function() {
+              scope.$destroy();
+              element.remove(); 
+              //恢复原始位置
+              var view = scope.getActiveContent();
+                  view.style.top = "44px";
+
+                  body = view = element = null;
+
+            }, 200);
+
+          };
+          /** 
+          * 添加编译后的模板
+          *
+          */
+          scope.show = function() {
+            if(!scope.delegateHandle) {
+              // 活动视图添加编译后模板
+              getActiveView(body).querySelector('ion-view').appendChild(element[0]);
+            }else {
+              // 活动视图添加编译后模板
+              angular.element($ionicScrollDelegate.$getByHandle(scope.delegateHandle).getScrollView().__container).parent()[0].appendChild(element[0]);
+            }
+
+            /**
+            * 设置ion-content和.title-stable-banner-content
+            * clientWidth客户端宽度, stableBannerWidth banner的整个偏移宽度
+            */
+            var view = scope.getActiveContent(),
+                stableBannerContent = stableBannerContent = element[0].querySelector('.title-stable-banner-content'),
+                clientWidth = angular.element(view)[0].clientWidth,
+                stableBannerWidth = angular.element(stableBannerContent)[0].clientWidth + scope.left;
+            /**
+            * 设置距离顶部距离
+            */
+            view.style.top = 44 + scope.height +'px';
+
+            /**
+            * 文本显示方式
+            */
+            if(stableBannerWidth < clientWidth) {
+              /**
+              * 静态显示文本内容
+              */
+              stableBannerContent.style.animationPlayState = "paused";
+              stableBannerContent.style.WebkitAnimationPlayState = "paused";
+            }else {
+              /**
+              * 循环显示文本内容
+              * 设置距左距离200px
+              */
+              stableBannerContent.style.left = scope.left +'px';
+
+            }
+
+            /**
+            * 清空变量
+            */
+            view = stableBannerContent = clientWidth = stableBannerWidth = null;
+          }
+
+          /**
+          * 显示stable-banner
+          */
+          $timeout(function() {
+            scope.show();
+          }, 50, false);
+
+          /**
+          * 返回scope对象
+          */
+          scope.close.$scope = scope;
+          // 返回取消函数
+          return scope.close;
+        }
+
         // 服务返回的对象
         return {
-          show: contentBanner
+          show: contentBanner,
+          showstablebanner: stableBanner
         };
       }]);
-
 
 })(angular, ionic);

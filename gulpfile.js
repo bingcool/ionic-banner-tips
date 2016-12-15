@@ -36,6 +36,7 @@ gulp.task('sass',function() {
 // js文件编译
 gulp.task('js',function() {
 	return gulp.src(path.js)
+			   .pipe(gulp.dest(path.dist))
 		       .pipe(uglify())
 		       .pipe(rename({suffix: '.min'}))
                .pipe(gulp.dest(path.dist));
