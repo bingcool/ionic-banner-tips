@@ -23,16 +23,18 @@ ionic-banner-tips是一个基于ionic,利用angularjs实现的app的banner小提
 <script type="text/javascript" src="path/ionic-banner-tips.js"></script>
 ```  
 (2)在app的module包含依赖bing.ionic.content.banner       
-###   
+```   
 angular.module('starter',['ionic','bing.ionic.content.banner'],function() {					
-})			
+})
+```			
 (3)固定的banner的用法     
 首先的在控制器中依赖$ionicContentBanner     
-###     
-$ionicContentBanner.showstablebanner({
-		text:'各位旅客您们好，欢迎您们来到广州！',
-		type:'info',
-});
+```   
+$ionicContentBanner.showstablebanner({     
+		text:'各位旅客您们好，欢迎您们来到广州！',     
+		type:'info',    
+});   
+```
 
 
 
