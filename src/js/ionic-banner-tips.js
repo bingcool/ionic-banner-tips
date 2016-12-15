@@ -116,7 +116,7 @@ angular.module('bing.ionic.content.banner', ['ionic']);
             type: 'info',
             $deregisterBackButton: angular.noop,
             closeOnStateChange: true,
-            autoClose: null,
+            autoClose: 3000,
             delegateHandle:null
           }, opts);
 
@@ -234,8 +234,6 @@ angular.module('bing.ionic.content.banner', ['ionic']);
             type: 'info',
             left:200,
             height:30,
-            $deregisterBackButton: angular.noop,
-            closeOnStateChange: true,
             delegateHandle:null,   
           }, opts);
 

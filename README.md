@@ -35,6 +35,42 @@ $ionicContentBanner.showstablebanner({
 		type:'info',    
 });   
 ```
+可配置值：    
+icon: 'ion-close-circled', //关闭banner的图标        
+text: null,                //显示的文本内容,可以包含html         
+type: 'info',			   //显示的主题类型，可选'info','warning','error'          
+left:200,				   //文本距离左边的距离,默认200px         
+height:30,				   //banner的高度,默认30px            
+delegateHandle:null,       //ion-content的delegate-handle,默认为null,可以设置    
+下面是一个demo：    
+![banner](/test/img/banner1.gif "banner")    
+(4)动态的banner的用法
+比如下拉刷新数据时   
+```
+ $scope.refreshItems = function() {
+
+	$ionicContentBanner.showstablebanner({     
+			icon: 'ion-ios-close-empty',
+	        transition: 'vertical', 
+	        autoClose: 3000,          
+	        type: 'info',     
+	        $deregisterBackButton: angular.noop,     
+	        closeOnStateChange: true,            
+	        delegateHandle:null          
+	});    
+}       
+```   
+可配置值：     
+icon: 'ion-ios-close-empty',//关闭banner的图标     
+transition: 'vertical',//banner出现的动画,可选'vertical','fade'     
+autoClose: 3000,//显示多少毫秒自动消失,默认3000ms,即3s                
+type: 'info',//显示的类型,可选'info','error'           
+$deregisterBackButton: angular.noop,           
+closeOnStateChange: true,//设置状态改变的时候，是否关闭banner             
+delegateHandle:null//ion-content的delegate-handle,默认为null,可以设置               
+下面是一个demo：           
+![banner](/test/img/banner2.gif "banner")             
+
 
 
 
