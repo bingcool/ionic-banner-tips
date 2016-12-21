@@ -116,7 +116,7 @@ angular.module('bing.ionic.content.banner', ['ionic']);
             type: 'info',
             $deregisterBackButton: angular.noop,
             closeOnStateChange: true,
-            autoClose: null,
+            autoClose: 3000,
             delegateHandle:null
           }, opts);
 
@@ -230,40 +230,41 @@ angular.module('bing.ionic.content.banner', ['ionic']);
           */
           angular.extend(scope, {
             icon: 'ion-close-circled',
+            iconBell: 'ion-android-volume-up',
             text: null,
             type: 'info',
             left:200,
             height:30,
-            $deregisterBackButton: angular.noop,
             closeOnStateChange: true,
             delegateHandle:null,   
           }, opts);
 
           switch(scope.type) {
             case "info" : scope.themeClass = 'bar-balanced';
-                          scope.iconClose = 'icon-close-balanced';
+                          scope.iconSpan = 'icon-close-balanced';
             break;
             case "warning" : scope.themeClass = 'bar-energized';
-                             scope.iconClose = 'icon-close-energized';
+                             scope.iconSpan = 'icon-close-energized';
             break;
             case "error" : scope.themeClass = 'bar-assertive';
-                           scope.iconClose = 'icon-close-assertive';
+                           scope.iconSpan = 'icon-close-assertive';
             break;
             case "positive" : scope.themeClass = 'bar-positive';
-                            scope.iconClose = 'icon-close-positive';
+                            scope.iconSpan = 'icon-close-positive';
             break;
             case "calm" : scope.themeClass = 'bar-calm';
-                          scope.iconClose = 'icon-close-calm';
+                          scope.iconSpan = 'icon-close-calm';
             break;
             case "royal" : scope.themeClass = 'bar-royal';
-                          scope.iconClose = 'icon-close-royal';
+                          scope.iconSpan = 'icon-close-royal';
             break;
             case "dark" : scope.themeClass = 'bar-dark';
-                          scope.iconClose = 'icon-close-dark';
+                          scope.iconSpan = 'icon-close-dark';
           }
 
           var template = 
                 '<div class="bar bar-subheader {{::themeClass}}" style="height:{{::height}}px">'+
+                  '<sapn class="icon-bell-stable-banner {{::iconSpan}}"><i class="{{::iconBell}}"></i></sapn>'+
                   '<span class="title-stable-banner">'+
                     '<span class="title-stable-banner-content" ng-bind-html="text"></span>'+
                   '</span>'+

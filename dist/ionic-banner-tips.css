@@ -115,6 +115,19 @@
     transform: translateX(-450px); }
   100% {
     transform: translateX(-500px); } }
+.bar-subheader .icon-bell-stable-banner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  z-index: 200;
+  padding-top: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background: #33cd5f;
+  font-size: 15px; }
+
 .bar-subheader .icon-close-stable-banner {
   position: absolute;
   right: 0;
