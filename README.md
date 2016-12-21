@@ -36,7 +36,8 @@ $ionicContentBanner.showstablebanner({
 });   
 ```
 可配置值：    
-icon: 'ion-close-circled', //关闭banner的图标        
+icon: 'ion-close-circled', //关闭banner的图标
+iconBell: 'ion-android-volume-up'  //右边显示的通知的图标，默认ion-android-volume-up             
 text: null,                //显示的文本内容,可以包含html         
 type: 'info',			   //显示的主题类型，可选'info','warning','error'          
 left:200,				   //文本距离左边的距离,默认200px         
