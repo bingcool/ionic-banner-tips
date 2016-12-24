@@ -57,6 +57,9 @@
   transform: translate3d(0, 0, 0);
   opacity: 0.7; }
 
+.title-stable-banner {
+  padding-left: 35px; }
+
 .bar-subheader .title-stable-banner-content {
   position: absolute;
   margin-right: 2px;
